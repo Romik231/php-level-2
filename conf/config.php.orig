@@ -1,0 +1,12 @@
+<?php
+	$host = "localhost";
+	$user = "root";
+	$password = "";
+<<<<<<< Updated upstream
+	$nameDB = "pictures";
+=======
+	$nameDB = "php";
+
+	$link = mysqli_connect($host, $user, $password, $nameDB);
+>>>>>>> Stashed changes
+?>
