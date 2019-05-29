@@ -1,0 +1,89 @@
+<?php
+//Функция ресайза изображений
+
+	function changeImage($h, $w, $src, $newsrc, $fileType) {
+			
+	    $newimg = imagecreatetruecolor($h, $w);
+		    if ($fileType == 'jpeg' or $fileType == 'JPEG'){ 
+		     	$img = imagecreatefromjpeg($src);
+		        imagecopyresampled($newimg, $img, 0, 0, 0, 0, $h, $w, imagesx($img), imagesy($img));
+		        imagejpeg($newimg, $newsrc);
+		    } elseif ($fileType == 'jpg' or $fileType == 'JPG') {
+		    	$img = imagecreatefromjpg($src);
+		        imagecopyresampled($newimg, $img, 0, 0, 0, 0, $h, $w, imagesx($img), imagesy($img));
+		        imagejpg($newimg, $newsrc);
+		    } elseif($fileType == 'png' or $fileType == 'PNG') {
+		    	$img = imagecreatefrompng($src);
+		        imagecopyresampled($newimg, $img, 0, 0, 0, 0, $h, $w, imagesx($img), imagesy($img));
+		        imagepng($newimg, $newsrc);
+		    } 
+	}
+
+  
+
+	//Функция добавления информации о файле в базу данных
+
+	function addInfoIntoDB(){
+		require_once "../config/config.php";
+		if(isset($_FILES['image'])){
+			$fileName = $_FILES['image']['name'];
+			$fileSize = $_FILES['image']['size'];
+			$fileType = explode('/', $_FILES['image']['type'])[1];
+			$fileTmp = $_FILES['image']['tmp_name'];
+			$insertImg = "INSERT INTO pictures (name, size, path) VALUES ('$fileName', '$fileSize', 'img/small/')"; var_dump($_FILES);//Делаем запрос на добавление данных в базу
+			if(!$fileType){
+				echo "Данный формат файла не поддерживается";
+			}else{
+				changeImage(200, 300, $fileTmp, 'img/small/'.$fileName, $fileType);
+				move_uploaded_file($fileTmp, 'img/big/'.$fileName);
+				if(mysqli_query($link, $insertImg)){
+					echo "Фал загружен";
+				}else{
+					echo "Упс, что-то пошло не так";
+				}
+			}
+		}
+	}
+	
+
+	function counters($link, $id, $counter){
+	require_once "../config/config.php";
+    if ($link && $id && $counter) {
+        $query = "SELECT * FROM pictures WHERE id = $id";
+        $resDB = mysqli_query($link, $query);
+        $data = mysqli_fetch_all($resDB, MYSQLI_ASSOC)[0];
+        print_r($data);
+        $query = "UPDATE pictures SET click = click +1  WHERE id =  $id";
+        mysqli_query($link, $query);
+    }
+}
+	$id = $_GET['id'];
+    $click = $_GET['click'];
+
+    if ($id) {
+        if ($click == true) {
+            counters($link, $id, "click");
+        }
+}?>
+<div class="content">
+	
+</div>
+
+<div class="form">
+	<form action="" method="POST" enctype="multipart/form-data">
+		<input type="file" name="image">
+		<input type="submit" name="submit">
+	</form>
+</div>
+<footer>
+			
+</footer>  
+  
+<script src="scripts/jquery-1.4.3.min.js"></script>
+<script src="scripts/jquery.easing-1.3.pack.js"></script>
+<script src="scripts/jquery.fancybox-1.3.4.pack.js"></script>
+<script src="scripts/main.js"></script>
+
+ </body>
+ 
+</html>

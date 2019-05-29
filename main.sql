@@ -1,7 +1,0 @@
-CREATE TABLE pictures (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  name VARCHAR(64),
-  size INT NOT NULL,
-  path VARCHAR(255) NOT NULL,
-  click INT DEFAULT NULL
-  );
