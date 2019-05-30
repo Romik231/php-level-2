@@ -1,4 +1,5 @@
 <?php
+include "../config/config.php";
 //Функция ресайза изображений
 
 	function changeImage($h, $w, $src, $newsrc, $fileType) {
@@ -18,37 +19,31 @@
 		        imagepng($newimg, $newsrc);
 		    } 
 	}
-
-  
-
 	//Функция добавления информации о файле в базу данных
 
-	function addInfoIntoDB(){
-		require_once "../config/config.php";
-		if(isset($_FILES['image'])){
+	if(isset($_FILES['image'])){
 			$fileName = $_FILES['image']['name'];
 			$fileSize = $_FILES['image']['size'];
 			$fileType = explode('/', $_FILES['image']['type'])[1];
 			$fileTmp = $_FILES['image']['tmp_name'];
-			$insertImg = "INSERT INTO pictures (name, size, path) VALUES ('$fileName', '$fileSize', 'img/small/')";var_dump($_FILES); //Делаем запрос на добавление данных в базу
+			$insertImg = "INSERT INTO pictures (name, size, path) VALUES ('$fileName', '$fileSize', '../public/img/small/')"; //Делаем запрос на добавление данных в базу
 			if(!$fileType){
 				echo "Данный формат файла не поддерживается";
 			}else{
-				changeImage(200, 300, $fileTmp, 'img/small/'.$fileName, $fileType);
-				move_uploaded_file($fileTmp, 'img/big/'.$fileName);
-				if(mysqli_query($link, $insertImg)){
+				changeImage(200, 300, $fileTmp, '../public/img/small/'.$fileName, $fileType);
+				move_uploaded_file($fileTmp, '../public/img/big/'.$fileName);
+				if($link->exec($insertImg)){
 					echo "Фал загружен";
 				}else{
 					echo "Упс, что-то пошло не так";
 				}
 			}
 		}
-	}
+	
 	
 
-	function counters($link, $id, $counter){
-	require_once "../config/config.php";
-    if ($link && $id && $counter) {
+	/*function counters($link, $id, $counter){
+	 if ($link && $id && $counter) {
         $query = "SELECT * FROM pictures WHERE id = $id";
         $resDB = mysqli_query($link, $query);
         $data = mysqli_fetch_all($resDB, MYSQLI_ASSOC)[0];
@@ -64,5 +59,5 @@
         if ($click == true) {
             counters($link, $id, "click");
         }
-}
+}*/
        
