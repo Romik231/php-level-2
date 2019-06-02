@@ -30,9 +30,9 @@
         <div id="copyrights">&copy; Brand</div>
     </div>
 </footer>
-<script src="scripts/jquery-1.4.3.min.js"></script>
-<script src="scripts/jquery.easing-1.3.pack.js"></script>
-<script src="scripts/jquery.fancybox-1.3.4.pack.js"></script>
-<script src="scripts/main.js"></script>
+<script src="../public/scripts/jquery-1.4.3.min.js"></script>
+<script src="../public/scripts/jquery.easing-1.3.pack.js"></script>
+<script src="../public/scripts/jquery.fancybox-1.3.4.pack.js"></script>
+<script src="../public/scripts/main.js"></script>
 </body>
 </html>

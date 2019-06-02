@@ -2,7 +2,7 @@
 include $_SERVER['DOCUMENT_ROOT']."/home_shop/config/config.php";
 /*функция получения всех товаров*/
 function get_products($link){
-	$sqlSelect = "SELECT * FROM products";
+	$sqlSelect = "SELECT * FROM products LIMIT 10";
 	$result = mysqli_query($link, $sqlSelect);
 	while($data = mysqli_fetch_assoc($result)){
 		$row[] = $data;
@@ -36,9 +36,9 @@ function delete_product($link, $id){
 }
 
 /*Функция редактирования товара*/
-function edit_product($link, $id, $name, $nameimg, $description, $shortdescription, $price){
+function edit_product($link, $id, $name, $description, $shortdescription, $price){
 	 $id = (int)$id;
-	$queryUpdate = "UPDATE products SET name='$name', image='$nameimg',  short_description='$shortdescription', description='$description', price='$price' WHERE id=".$id;
+	$queryUpdate = "UPDATE products SET name='$name', short_description='$shortdescription', description='$description', price='$price' WHERE id=".$id;
 	if(mysqli_query($link, $queryUpdate)){
 		echo "Изменения внесены";
 	}else

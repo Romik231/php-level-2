@@ -18,7 +18,37 @@
 		<?}?>
 	</div>
 
-<p id="par1">После нажатия на кнопку ниже в данном поле будет отображен результат низкоуровневого AJAX запроса.</p>
-<input id="but1" type="button" value="Отправить низкоуровневый запрос." />
+
+	<input id="show_more" count_show="5" count_add="3" type="button" value="Показать еще" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"  type="text/javascript"></script>
+<script>
+	$(document).ready(function() {
+    	$('#show_more').click(function(){
+    		let btn_more = $(this);
+			let count_show = parseInt($(this).attr('count_show'));
+			let count_add = $(this).attr('count_add');
+			console.log(count_show);
+			$.ajax({
+				url : "load.php",
+				method: "POST",
+				//dataType: "json",
+				data:{
+					count_show:count_show,
+					count_add:count_add
+				},
+				success: function(data){
+					if(data.result == "success"){
+						$('.products').append(data.html);
+						btn_more.attr('count_show', (count_show+3));
+					}else{
+						$('#show_more').hide();
+					}
+				}
+
+			});
+		});
+    	});
+  </script>
+
 
 

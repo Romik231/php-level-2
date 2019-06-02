@@ -1,19 +1,34 @@
 $(document).ready(function() {
     $(".modal").fancybox();
+	
 });
-
-/*function buy(id){
+function delete_good(id_good){
 	$.ajax({
-		type: "POST",
-		url: "../controllers/basket.php",
-		data: 'id='+id,
+		url: "templates/deleteproducts.php",
+		method: 'GET',
+		data: {id:id_good},
 		success: function(data){
-            alert("Вы добавили товар в корзину!");
-            $(".basket").html(data);
+			$('.full_product').html('Товар был удален');
+			setTimeout(function(){
+			  window.location.href = 'index.php?page=product';
+						}, 1000);
+			
+		}
 	});
-}*/
+}
 
-
-
+function edit_good(id_good){
+	$.ajax({
+		url:"templates/FormEdit.php",
+		method:"GET",
+		data:{id:id_good},
+		success: function(data){
+			console.log(data);
+			setTimeout(function(){
+			    window.location.href = 'index.php?page=product';
+			 			}, 1000);
+		}
+	});
+}
 
    

@@ -17,7 +17,9 @@ $product = get_product($link, $id);
 	  	<span><b>Цена:</b><?=$product['price']?></span>
 	  	<?php 
 	  	if(isset($_SESSION['login']) and isset($_SESSION['password'])){?>
-	  	<a href="templates/deleteproducts.php?id=<?=$id?>"><button>Удалить товар</button></a>
+	  	<a href="templates/deleteproducts.php?id=<?=$id?>">ccskrf</a>
+
+	  	<button id='delete' onclick="delete_good(<?=$product['id']?>)">Удалить товар</button>
 	  	<a href="templates/FormEdit.php?<?="id=$id"?>" class="modal"><button>Редактировать</button></a>
 	  	<?}?>
 	  	<button onclick="buy(<?=$data['id']?>)">Купить</button> 
@@ -25,4 +27,5 @@ $product = get_product($link, $id);
   	</div>
 </div>
 
-<?php include "templates/footer.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT']."/home_shop/public/templates/footer.php"; ?>
+
