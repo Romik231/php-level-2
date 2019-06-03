@@ -17,7 +17,7 @@ function delete_good(id_good){
 	});
 }
 
-function edit_good(id_good){
+/*function edit_good(id_good){
 	$.ajax({
 		url:"templates/FormEdit.php",
 		method:"GET",
@@ -29,6 +29,6 @@ function edit_good(id_good){
 			 			}, 1000);
 		}
 	});
-}
+}*/
 
    
